@@ -1,0 +1,93 @@
+DROP SEQUENCE Active_employees_seq ; 
+create sequence Active_employees_seq 
+start with 100 
+increment by 1 
+nomaxvalue 
+;
+DROP TRIGGER Active_employees_PK_trig 
+; 
+
+create or replace trigger Active_employees_PK_trig 
+before insert on Active_employees
+for each row 
+begin 
+select Active_employees_seq.nextval into :new.employee_id from dual; 
+end; 
+/
+
+DROP SEQUENCE Division_seq ; 
+create sequence Division_seq 
+start with 100 
+increment by 1 
+nomaxvalue 
+;
+DROP TRIGGER Division_PK_trig 
+; 
+
+create or replace trigger Division_PK_trig 
+before insert on Division
+for each row 
+begin 
+select Division_seq.nextval into :new.division_id from dual; 
+end; 
+/
+
+DROP SEQUENCE Lab_seq ; 
+create sequence Lab_seq 
+start with 100 
+increment by 1 
+nomaxvalue 
+;
+DROP TRIGGER Lab_PK_trig 
+; 
+
+create or replace trigger Lab_PK_trig 
+before insert on Lab
+for each row 
+begin 
+select Lab_seq.nextval into :new.lab_id from dual; 
+end; 
+/
+
+DROP SEQUENCE Members_seq ; 
+create sequence Members_seq 
+start with 100 
+increment by 1 
+nomaxvalue 
+;
+DROP TRIGGER Members_PK_trig 
+; 
+
+create or replace trigger Members_PK_trig 
+before insert on Members
+for each row 
+begin 
+select Members_seq.nextval into :new.list_seq_id from dual; 
+end; 
+/
+
+DROP SEQUENCE Notice_lists_seq ; 
+create sequence Notice_lists_seq 
+start with 100 
+increment by 1 
+nomaxvalue 
+;
+DROP TRIGGER Notice_lists_PK_trig 
+; 
+
+create or replace trigger Notice_lists_PK_trig 
+before insert on Notice_lists
+for each row 
+begin 
+select Notice_lists_seq.nextval into :new.notice_list_id from dual; 
+end; 
+/
+
+DROP INDEX Lab_lab_id_FK_0 ;
+CREATE INDEX Lab_lab_id_FK_0 ON Division(Lab_lab_id) ;
+DROP INDEX Active_employees_emplo_FK_1 ;
+CREATE INDEX Active_employees_emplo_FK_1 ON Members(Active_employees_employee_id) ;
+DROP INDEX Notice_lists_notice_li_FK_2 ;
+CREATE INDEX Notice_lists_notice_li_FK_2 ON Members(Notice_lists_notice_list_id) ;
+DROP INDEX Notice_lists_notice_li_FK_3 ;
+CREATE INDEX Notice_lists_notice_li_FK_3 ON Members(Notice_lists_notice_list_id1) ;

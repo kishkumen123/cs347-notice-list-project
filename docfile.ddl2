@@ -1,0 +1,17 @@
+DROP SEQUENCE Document_seq ; 
+create sequence Document_seq 
+start with 100 
+increment by 1 
+nomaxvalue 
+;
+DROP TRIGGER Document_PK_trig 
+; 
+
+create or replace trigger Document_PK_trig 
+before insert on Document
+for each row 
+begin 
+select Document_seq.nextval into :new.doc_it from dual; 
+end; 
+/
+
